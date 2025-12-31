@@ -1,0 +1,24 @@
+# Smart Factory OEE — Performance Monitoring & Optimisation (Data Engineering–Led)
+
+Manufacturing analytics pipeline using Python to validate, clean, and model OEE + downtime data (Bronze → Silver → Gold), with Power BI as the final reporting layer.
+
+## Data
+Synthetic OEE & downtime CSV exports (stored in `data/bronze/`):
+- `oee_by_day.csv`
+- `oee_by_shift.csv`
+- `downtime_pareto.csv`
+
+## Pipeline
+- **Bronze:** raw CSVs as received
+- **Silver:** cleaned + validated tables (types, constraints, dedupe, null checks)
+- **Gold:** analytics-ready KPI tables + Pareto + optimisation action table
+
+## Run
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python etl/01_ingest_validate.py
+python etl/02_clean_transform.py
+python etl/03_build_gold.py
+
