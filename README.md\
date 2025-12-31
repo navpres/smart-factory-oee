@@ -9,9 +9,9 @@ Synthetic OEE & downtime CSV exports (stored in `data/bronze/`):
 - `downtime_pareto.csv`
 
 ## Pipeline
-- **Bronze:** raw CSVs as received
-- **Silver:** cleaned + validated tables (types, constraints, dedupe, null checks)
-- **Gold:** analytics-ready KPI tables + Pareto + optimisation action table
+- Bronze: raw CSVs as received
+- Silver: cleaned + validated tables (types, constraints, dedupe, null checks)
+- Gold: analytics-ready KPI tables + Pareto + optimisation action table
 
 ## Run
 ```bash
