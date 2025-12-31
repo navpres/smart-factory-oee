@@ -52,4 +52,42 @@ python etl/01_ingest_validate.py
 python etl/02_clean_transform.py
 python etl/03_build_gold.py
 
+Pipleline diagram:
+ 
+            ┌────────────────────────┐
+            │  Source Data (CSV)     │
+            │  - oee_by_day.csv      │
+            │  - oee_by_shift.csv    │
+            │  - downtime_pareto.csv│
+            └───────────┬────────────┘
+                        │
+                        ▼
+               ┌────────────────┐
+               │ Bronze Layer   │
+               │ Raw Ingestion  │
+               │ data/bronze/   │
+               └────────┬───────┘
+                        │
+                        ▼
+               ┌────────────────┐
+               │ Silver Layer   │
+               │ Cleaning &     │
+               │ Validation     │
+               │ data/silver/   │
+               └────────┬───────┘
+                        │
+                        ▼
+               ┌────────────────┐
+               │ Gold Layer     │
+               │ KPIs &         │
+               │ Optimisation   │
+               │ data/gold/     │
+               └────────┬───────┘
+                        │
+                        ▼
+               ┌────────────────┐
+               │ Power BI       │
+               │ Dashboards     │
+               └────────────────┘
+
 
