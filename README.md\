@@ -1,24 +1,55 @@
 # Smart Factory OEE — Performance Monitoring & Optimisation (Data Engineering–Led)
 
-Manufacturing analytics pipeline using Python to validate, clean, and model OEE + downtime data (Bronze → Silver → Gold), with Power BI as the final reporting layer.
+An end-to-end manufacturing analytics pipeline built in Python to ingest, validate, clean, and model OEE and downtime data using a layered Bronze → Silver → Gold architecture. The output is analytics-ready KPI and optimisation tables designed for consumption in Power BI or other BI tools.
+
+This project demonstrates data engineering best practices including data quality validation, reproducible transformations, and separation of raw and derived data layers.
+
+---
 
 ## Data
-Synthetic OEE & downtime CSV exports (stored in `data/bronze/`):
-- `oee_by_day.csv`
-- `oee_by_shift.csv`
-- `downtime_pareto.csv`
 
-## Pipeline
-- Bronze: raw CSVs as received
-- Silver: cleaned + validated tables (types, constraints, dedupe, null checks)
-- Gold: analytics-ready KPI tables + Pareto + optimisation action table
+Synthetic OEE and downtime CSV exports stored in `data/bronze/`:
 
-## Run
+- `oee_by_day.csv` — daily machine OEE metrics  
+- `oee_by_shift.csv` — shift-level OEE metrics  
+- `downtime_pareto.csv` — downtime causes and durations
+
+These datasets simulate production exports from a manufacturing execution or historian system.
+
+---
+
+## Pipeline Architecture
+
+The pipeline follows a standard layered data architecture:
+
+### Bronze — Raw Ingestion
+- Raw CSVs as received from the source system
+- No modification except schema validation and quality checks
+
+### Silver — Cleaned & Standardised
+- Type casting and schema enforcement
+- Null, duplicate, and value range validation
+- Column standardisation and basic transformations
+
+### Gold — Analytics & Optimisation Outputs
+- KPI summary tables
+- Worst-performing shift analysis
+- Pareto analysis of top downtime causes
+- Recommended optimisation action table
+
+Gold outputs are written to `data/gold/` and are not version-controlled.
+
+---
+
+## How to Run
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+
 python etl/01_ingest_validate.py
 python etl/02_clean_transform.py
 python etl/03_build_gold.py
+
 
